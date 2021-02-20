@@ -15,7 +15,7 @@ variable "image" {
 }
 
 variable "prefix" {
-  default = "node"
+  default = "vault"
 }
 
 variable "role" {
