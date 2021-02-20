@@ -19,7 +19,7 @@ data "template_file" "template" {
   template = data.http.template.body
   vars = {
     dc            = var.dc-name,
-    iface         = "eth0",
+    iface         = var.iface,
     consul_server = "consul01-${var.role}",
     license       = var.license
   }
@@ -28,7 +28,7 @@ data "template_file" "template" {
 resource "lxd_container" "vault" {
   count     = length(var.lxd-profile)
   name      = "${format("vault%02d", count.index + 1)}-${var.role}"
-  image     = "packer-vault"
+  image     = var.image
   ephemeral = false
   profiles  = [ var.lxd-profile[count.index] ]
 
