@@ -27,7 +27,7 @@ data "template_file" "template" {
 
 resource "lxd_container" "vault" {
   count     = length(var.lxd-profile)
-  name      = "${format("vault%02d", count.index + 1)}-${var.role}"
+  name      = "${format("%s%02d", var.prefix, count.index + 1)}-${var.role}"
   image     = var.image
   ephemeral = false
   profiles  = [ var.lxd-profile[count.index] ]
