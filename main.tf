@@ -20,7 +20,7 @@ data "template_file" "template" {
   vars = {
     dc            = var.dc-name,
     iface         = var.iface,
-    consul_server = var.consul-server,
+    consul_server = "${var.consul-server}-${var.role}",
     license       = var.license
   }
 }
