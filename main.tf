@@ -1,5 +1,5 @@
 locals {
-  vault-map = zipmap([for v in lxd_container.vault : v.id], [for v in lxd_container.vault : v.ipv4_address])
+  container-map = zipmap([for v in lxd_container.container : v.id], [for v in lxd_container.container : v.ipv4_address])
 }
 
 terraform {
@@ -20,12 +20,12 @@ data "template_file" "template" {
   vars = {
     dc            = var.dc-name,
     iface         = var.iface,
-    consul_server = "consul01-${var.role}",
+    consul_server = var.consul-server,
     license       = var.license
   }
 }
 
-resource "lxd_container" "vault" {
+resource "lxd_container" "container" {
   count     = length(var.lxd-profile)
   name      = "${format("%s%02d", var.prefix, count.index + 1)}-${var.role}"
   image     = var.image
@@ -39,5 +39,5 @@ resource "lxd_container" "vault" {
 }
 
 output "hosts" {
-  value = local.vault-map
+  value = local.container-map
 }
