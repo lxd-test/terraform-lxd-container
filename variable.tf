@@ -1,3 +1,8 @@
+variable "consul-server" {
+  type    = string
+  default = "consul01-primary"
+}
+
 variable "dc-num" {
   default = 0
 }
